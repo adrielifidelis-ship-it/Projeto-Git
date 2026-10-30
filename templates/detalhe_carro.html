@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ carro.marca }} {{ carro.modelo }} - Velocity Motors{% endblock %}
+
+{% block content %}
+    <div style="max-width: 750px; margin: 0 auto; background: #1e1e1e; border: 1px solid #dc2626; border-radius: 16px; padding: 35px; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2); text-align: center;">
+        <span class="card-brand" style="font-size: 1.1rem; color: #dc2626; font-weight: 800; letter-spacing: 1px;">{{ carro.marca }}</span>
+        <h1 style="color: #fff; margin-bottom: 20px; font-size: 2.3rem; text-transform: uppercase; font-weight: 800;">{{ carro.modelo }}</h1>
+
+        {% if carro.imagem %}
+            <img src="{{ carro.imagem }}" alt="{{ carro.modelo }}" style="width: 100%; height: 380px; object-fit: cover; border-radius: 12px; margin-bottom: 25px; border: 1px solid #333;">
+        {% endif %}
+
+        <div style="background-color: #121212; border: 1px solid #2a2a2a; padding: 20px; border-radius: 10px; margin-bottom: 25px; display: flex; justify-content: space-around;">
+            <div>
+                <span style="font-size: 0.8rem; color: #64748b; display: block; text-transform: uppercase; font-weight: 600;">Código ID</span>
+                <strong style="font-size: 1.2rem; color: #dc2626;">#{{ carro.id }}</strong>
+            </div>
+            <div>
+                <span style="font-size: 0.8rem; color: #64748b; display: block; text-transform: uppercase; font-weight: 600;">Marca</span>
+                <strong style="font-size: 1.2rem; color: #fff;">{{ carro.marca }}</strong>
+            </div>
+            <div>
+                <span style="font-size: 0.8rem; color: #64748b; display: block; text-transform: uppercase; font-weight: 600;">Modelo</span>
+                <strong style="font-size: 1.2rem; color: #fff;">{{ carro.modelo }}</strong>
+            </div>
+        </div>
+
+        <!-- Percorre a lista de opcionais do veículo -->
+        {% if carro.opcionais_lista %}
+            <div style="background-color: #121212; border: 1px solid #2a2a2a; border-left: 4px solid #dc2626; padding: 20px 25px; border-radius: 10px; margin-bottom: 30px; text-align: left;">
+                <h3 style="color: #fff; margin-bottom: 15px; font-size: 1.1rem; text-transform: uppercase; font-weight: 700;">
+                    ⚡ Opcionais do Veículo ({{ carro.opcionais_lista|length }} itens)
+                </h3>
+                <ul style="color: #cbd5e1; padding-left: 20px; font-size: 0.95rem; line-height: 1.9;">
+                    {% for opcional in carro.opcionais_lista %}
+                        <li>{{ opcional }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <a href="/veiculos" class="btn" style="background-color: #2a2a2a; border: 1px solid #444;">⬅ Voltar ao Showroom</a>
+    </div>
+{% endblock %}

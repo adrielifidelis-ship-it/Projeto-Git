@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Bem-vindo - Velocity Motors{% endblock %}
+
+{% block content %}
+    <div style="background: linear-gradient(135deg, #1e1e1e 0%, #0a0a0a 100%); border: 1px solid #dc2626; color: white; padding: 60px 30px; border-radius: 16px; text-align: center; box-shadow: 0 10px 30px rgba(220, 38, 38, 0.15);">
+        <h1 style="font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; text-transform: uppercase;">Acelere seus Sonhos</h1>
+        <p style="font-size: 1.2rem; color: #94a3b8; margin-bottom: 30px;">O acervo mais exclusivo de veículos de alta performance está aqui.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="/veiculos" class="btn">Ver Catálogo Completo</a>
+            <a href="/selecionar-marca" class="btn" style="background-color: transparent; border: 2px solid #dc2626;">Filtrar por Marca</a>
+        </div>
+    </div>
+{% endblock %}
