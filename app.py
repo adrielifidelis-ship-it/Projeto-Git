@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-# Lista global com os 10 opcionais cadastrados no sistema
+# Lista global com os 10 opcionais do sistema
 TODOS_OPCIONAIS = [
     "Direção elétrica progressiva",
     "Central Multimídia de 8\"",
@@ -22,7 +22,7 @@ def carregar_carros():
     try:
         with open("carros.json", mode="r", encoding="utf-8") as file:
             return json.load(file)
-    except FileNotFoundError:
+    except (FileNotFoundError, json.JSONDecodeError):
         return []
 
 @app.route("/")
@@ -46,8 +46,9 @@ def selecionar_marca():
 
     if request.method == "POST":
         marca_escolhida = request.form.get("marca")
-        carros_filtrados = [c for c in carros if c["marca"].lower() == marca_escolhida.lower()]
-        random.shuffle(carros_filtrados)
+        if marca_escolhida:
+            carros_filtrados = [c for c in carros if c["marca"].lower() == marca_escolhida.lower()]
+            random.shuffle(carros_filtrados)
 
     return render_template("selecionar_marca.html", marcas=marcas, marca_escolhida=marca_escolhida, carros_filtrados=carros_filtrados)
 
@@ -59,7 +60,7 @@ def detalhe_carro(id_carro):
     for carro in carros:
         if carro["id"] == id_carro:
             carro_encontrado = dict(carro)
-            # Pega os N primeiros opcionais da lista global com base na quantidade do carro
+            # Pega os N primeiros opcionais com base no valor de 'qtd_opcionais'
             qtd = carro_encontrado.get("qtd_opcionais", 3)
             carro_encontrado["opcionais_lista"] = TODOS_OPCIONAIS[:qtd]
             break
